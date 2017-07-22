@@ -8,8 +8,8 @@ Navigate to [url not setup](http://www.google.com) to view the webpage. Events a
 ### Software Used
 '''
 Python
->Flask
->Selenium
+Flask
+Selenium
 GoDaddy.com
 HTML and JavaScript
 '''
