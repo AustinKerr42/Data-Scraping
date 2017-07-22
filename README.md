@@ -7,11 +7,12 @@ Navigate to [url not setup](http://www.google.com) to view the webpage. Events a
 
 ### Software Used
 ```
-Python
+**Python**
 Flask
 Selenium
+**Webpage**
 GoDaddy.com
-HTML and JavaScript
+HTML, JavaScript, JQuery
 ```
 
 
