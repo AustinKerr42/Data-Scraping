@@ -6,11 +6,13 @@ A data scrapinng project to display events in Des Moines, Iowa.
 Navigate to [url not setup](http://www.google.com) to view the webpage. Events are added to the page as the are posted on the various sites that the scrapers get their data from.
 
 ### Software Used
->Python
->Flask
->Selenium
->GoDaddy.com
->HTML and JavaScript
+Here
+'''
+Python
+Flask
+Selenium
+GoDaddy.com
+HTML and JavaScript
 '''
 
 
