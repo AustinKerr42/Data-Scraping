@@ -7,12 +7,12 @@ Navigate to [url not setup](http://www.google.com) to view the webpage. Events a
 
 ### Software Used
 ```
-*Python*
-Flask
-Selenium
-*Webpage*
-GoDaddy.com
-HTML, JavaScript, JQuery
+Python 2.7.13
+-Flask
+-Selenium
+Webpage:
+-GoDaddy.com
+-HTML, JavaScript, JQuery
 ```
 
 ### scrap_dsmEvents.py
