@@ -7,7 +7,7 @@ Navigate to [url not setup](http://www.google.com) to view the webpage. Events a
 
 ### Software Used
 ```
-Python 2.7.13
+Python 2.7.13:
 -Flask
 -Selenium
 Webpage:
