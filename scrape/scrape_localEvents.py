@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import arrow
+from database import insertToTable
 
-stories = []
+events = []
 
 url = "http://www.iowaeventscenter.com/events"
 
@@ -47,14 +48,15 @@ for event in eventList.find_all(class_="m-eventItem"):
         day_end = arrow.get(day_end, 'Do').format('DD')
         endDate = year + month + day_end
     else:
-        endDate = "none"
+        endDate = "NULL"
 
-    nextStory = [href, title, location, startDate, endDate]
-    stories.append(nextStory)
+    nextEvent = [startDate, endDate, title, href, location]
+    events.append(nextEvent)
 
 
-def printStories():
-    for x in stories:
+def printEvents():
+    for x in events:
         print(x)
 
-# printStories()
+insertToTable("dsmEvents", events)
+# printEvents()
