@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Events</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap Links -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Table styling -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script> <!-- sort ability -->
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script> <!-- button/boxes appearance -->
+  <link href="https://cdn.datatables.net/1.10.0/css/jquery.dataTables.css" rel="stylesheet" /> <!-- view sort icons -->
+
+  <style src="/css/main.css"></style> 
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand active" href="index.html">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="dsm_events.html">Des Moines Events</a></li>
+        <li><a href="#">News Stories</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <h2>Des Moines Events</h2>
+        <hr><br> 
+        <table class="table table-hover display" id="tb_events" cellspacing="0">
+             <thead>
+            <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-md-2">
+      <input type="text" id="hideInput" placeholder="Hide events.." title="Type">
+    </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    //Get data from database
+    $.post("frontEnd.php", function(data,status) {
+      var dataDecode = JSON.parse(data);
+
+      var i;
+      for(i=0;i<dataDecode.length;i++){
+        $("#tb_events").append($('<tr>')
+            .append($('<td>')
+              .text(dataDecode[i].date)
+            )
+            .append($('<td>')
+              .append($('<a>')
+              .attr('href', dataDecode[i].href)
+              .text(dataDecode[i].headline)
+              )
+            )
+            .append($('<td>')
+              .text(dataDecode[i].location)
+            )
+        );
+      }
+
+      //Turn into datatable for sorting and filtering
+      $("#tb_events").DataTable({
+        order: [[ 0, "asc" ]],
+        columnDefs: [
+            {
+              // The `data` parameter refers to the data for the cell (defined by the
+              // `data` option, which defaults to the column being worked with, in
+              // this case `data: 0`.
+              render: function ( data, type, row ) {
+                  return data.substr(0,4) + "/" + data.substr(4,2) + "/" + data.substr(6,2);
+              },
+              targets: 0
+            }
+        ]
+      });
+    });
+  });
+
+  $("#hideInput").on('keyup', function (e) {
+      if (e.keyCode == 13) {
+          hideEvents();
+      }
+  });
+
+  function hideEvents() {
+    // Declare variables 
+    var input, filter, trs, td, i;
+    input = $("#hideInput")[0];
+    filter = input.value.toUpperCase();
+    
+    // Get all rows in the table
+    trs = $("#tb_events tr");
+
+    // Loop through all table rows, and hide those who match the search query
+    for (i = 0; i < trs.length; i++) {
+      td = trs[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          trs[i].style.display = "none";
+        } else {
+          trs[i].style.display = "";
+        }
+      } 
+    }
+  }
+
+</script>
+
+<br><br><br>
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

@@ -12,7 +12,6 @@ def insertToTable(table, events):
     #insert to table
     for event in events:
         try:
-            print(event[2])
             cursor.execute("INSERT INTO "  + table + " VALUES (%s,%s,%s,%s,%s)",(event[0],event[1],event[2],event[3],event[4]))
             db.commit()
         except:     
@@ -20,7 +19,6 @@ def insertToTable(table, events):
 
     #show table
     # cursor.execute("SELECT * FROM " + table + ";")
-
     # print cursor.fetchall()
 
     db.close()
