@@ -29,3 +29,14 @@ footer {
     }
     .row.content {height:auto;} 
 }
+
+/* Datatable rows */
+table.dataTable tr.odd { background-color: #D0D3D4; }
+table.dataTable tr.even { background-color: white; }
+
+table.dataTable tr.odd td.sorting_1 { background-color: #B3B6B7; }
+table.dataTable tr.odd td.sorting_2 { background-color: #B3B6B7; }
+table.dataTable tr.odd td.sorting_3 { background-color: #B3B6B7; }
+table.dataTable tr.even td.sorting_1 { background-color: #DCDCDC; }
+table.dataTable tr.even td.sorting_2 { background-color: #DCDCDC; }
+table.dataTable tr.even td.sorting_3 { background-color: #DCDCDC; }
