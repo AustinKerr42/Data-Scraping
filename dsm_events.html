@@ -51,7 +51,7 @@
 </div>
 
 <script>
-  function postCall(){
+  function postCall(callback){
     $.post("frontEnd.php", function(data,status) {
       var dataDecode = JSON.parse(data);
 
@@ -73,8 +73,11 @@
         );
       }
     });
+    callback();
+  }
 
-    //Turn into datatable for sorting and filtering
+  //Turn into datatable for sorting and filtering
+  function createDataTable(){
     $("#tb_events").DataTable({
       order: [[ 0, "asc" ]],
       columnDefs: [
@@ -113,9 +116,11 @@
     }
   }
 
+  //make it wait. not working now...
   $(document).ready(function() {
-    //Get data from database
-    postCall();
+    //Get data from database. On callback- create the datatable
+    postCall(createDataTable());
+    // $.when(postCall()).then(createDataTable());
   });
 
   //Hide rows

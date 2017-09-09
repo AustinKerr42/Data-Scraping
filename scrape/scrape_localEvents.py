@@ -1,12 +1,10 @@
 # DONE now add selenium to get all results
 from bs4 import BeautifulSoup
 import requests
-import re
 import arrow
 from database import insertToTable
 
 events = []
-
 url = "http://www.iowaeventscenter.com/events"
 
 page  = requests.get(url)

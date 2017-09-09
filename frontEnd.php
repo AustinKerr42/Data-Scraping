@@ -1,5 +1,4 @@
 <?php
-
 $dbServer = "50.62.209.147"; 
 $username = "AustinK";
 $password = "secondOne2";
