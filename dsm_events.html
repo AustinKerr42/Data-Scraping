@@ -38,6 +38,7 @@
         <table class="table table-hover display" id="tb_events" cellspacing="0">
              <thead>
             <tr>
+                <th style="display:none">Date Order</th>
                 <th>Date</th>
                 <th>Event</th>
                 <th>Location</th>
@@ -52,12 +53,18 @@
 
 <script>
   function postCall(callback){
-    $.post("frontEnd.php", function(data,status) {
+    $.ajax({
+      url: "/frontEnd.php"
+    }).done(function(data){
       var dataDecode = JSON.parse(data);
 
       var i;
       for(i=0;i<dataDecode.length;i++){
         $("#tb_events").append($('<tr>')
+            .append($('<td>')
+              .text(dataDecode[i].date)
+              .attr('style', "display:none")
+            )
             .append($('<td>')
               .text(dataDecode[i].date)
             )
@@ -72,8 +79,9 @@
             )
         );
       }
+      //Use datatable for formatting
+      createDataTable();
     });
-    callback();
   }
 
   //Turn into datatable for sorting and filtering
@@ -88,13 +96,13 @@
             render: function ( data, type, row ) {
                 return data.substr(6,2) + "/" + data.substr(4,2) + "/" + data.substr(0,4);
             },
-            targets: 0
+            targets: 1
           }
       ]
     });
   }
 
-  function hideEvents() {
+  function hideEvents(){
     // Declare variables 
     var input, filter, trs, td, i;
     input = $("#hideInput")[0];
@@ -118,22 +126,21 @@
 
   //make it wait. not working now...
   $(document).ready(function() {
-    //Get data from database. On callback- create the datatable
-    postCall(createDataTable());
-    // $.when(postCall()).then(createDataTable());
+    //Get data from database, when done: create datatable
+    postCall();
   });
 
   //Hide rows
-  $("#hideInput").on('keyup', function (e) {
-      if (e.keyCode == 13) {
-        var input, filter;
-        input = $("#hideInput")[0];
-        filter = input.value.toUpperCase();
+  // $("#hideInput").on('keyup', function (e) {
+  //     if (e.keyCode == 13) {
+  //       var input, filter;
+  //       input = $("#hideInput")[0];
+  //       filter = input.value.toUpperCase();
         
-        $("#tb_events tr:contains("+filter+")").hide();
-        // hideEvents();
-      }
-  });
+  //       $("#tb_events tr:contains("+filter+")").hide();
+  //       // hideEvents();
+  //     }
+  // });
 
 </script>
 
